@@ -12,8 +12,8 @@ UI TODO:
 - ViewPager
 - TextView : 李腾
 - ImageView  高祥
-- MaterialDesign
-- UI 性能优化
+- MaterialDesign 李仕庭
+- UI 性能优化 孙祥磊
 - 自定义 View
 - Drawable
 - Toast
@@ -30,14 +30,19 @@ UI TODO:
 JetPack:
 
 1. Lifecycle
-2. 
+2. LiveData
+3. ViewModel
+4. Paging
+5. Room
+6. ...
 
 
 
 Third Party :
 
 1. Retrofit
-2. OkHttp
-3. EventBus
+2. OkHttp  吴文彬
+3. EventBus 何昌辉
 4. Glide
 5. LeakCanary
+6. ...
