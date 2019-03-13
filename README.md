@@ -5,21 +5,39 @@
 
 
 
-TODO:
+UI TODO:
 
-- ConstraintLayout
-- RecyclerView
+- ConstraintLayout ： 余承润
+- RecyclerView：岳晓辉
 - ViewPager
-- TextView
-- ImageView
+- TextView : 李腾
+- ImageView  高祥
 - MaterialDesign
 - UI 性能优化
 - 自定义 View
 - Drawable
 - Toast
 - PopupWindow
-- DialogFragment
+- DialogFragment ： 宋纪琛
 - UI 适配
 - FlexboxLayout
-- Fragment
-- Animation
+- Fragment ： 李腾
+- Animation ： 徐晓涵
+- Bitmap  ：江清锋
+
+
+
+JetPack:
+
+1. Lifecycle
+2. 
+
+
+
+Third Party :
+
+1. Retrofit
+2. OkHttp
+3. EventBus
+4. Glide
+5. LeakCanary
