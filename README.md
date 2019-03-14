@@ -47,3 +47,26 @@ Third Party :
 4. Glide
 5. LeakCanary
 6. ...
+
+
+
+### 规范
+
+
+
+#### 资源规范
+
+资源存放到 Android 的 android/assets 目录
+
+
+
+命名规则： `知识点-描述` 
+
+比如 textview-spannable
+
+
+
+
+
+
+
