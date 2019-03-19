@@ -1,7 +1,23 @@
 # MasteringAndroid
-一个能帮助你更好掌握 Android 的库
+
+MasteringAndroid 的愿景是：
+
+「帮助每一个 Android 开发者更加快速、更加全面以及更加深入地学习并掌握 Android 。」
 
 
+### 学习 Android 的困境
+
+相信每个 Android 开发者都或多或少的遇到过一些学习以及成长上面的难题。
+
+1. 想了解 Android 但是不知道从哪里开始学习？
+2. 想学习 Android 但是不知道应该学习一些什么东西？
+2. 
+
+
+该项目会帮助你：
+
+1. 会告诉你学习 Android 开发究竟应该学些什么；
+2. 每个
 
 
 
