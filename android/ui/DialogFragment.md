@@ -1,3 +1,10 @@
+> 文章来源：MasteringAndroid
+>
+> 作者：StarkSong
+>
+> 审阅者：
+>
+> 贡献者：
 ### 介绍:
 1. Android 中实现弹窗的一种方式。
 2. 分为 v4 包下的和android.app 包下的，我们使用 v4 包下的， android.app 包下的 DialogFragment 在 Android28 版本上已经被标记为弃用了。
