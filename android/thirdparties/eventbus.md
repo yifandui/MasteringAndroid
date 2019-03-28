@@ -311,3 +311,24 @@ private void unsubscribeByEventType(Object subscriber, Class<?> eventType) {
 ```
 register 方法是把订阅者信息保存到 subscriptionsByEventType 和 typesBySubscriber 中，而 unregister 方法，就是把订阅者信息从两个变量中删除。
 
+## 其他知识
+由于我希望避免过多的代码，影响博客质量，所以下面的我就不放代码了，有兴趣的同学可以结合源码看一下。
+
+### postSticky
+postSticky 函数做了两个事情：
+1. 把事件缓存到 stickyEvents 中，再有新的订阅者注册的时候可以检查通知事件；
+2. 像 post 普通的事件一样，执行 post 方法
+
+### SubscriberMethodFinder 类
+ - findSubscriberMethods 方法通过反射，获取注解了 Subscribe 的方法，并保存到 SubscriberMethod 里。
+ - 静态常量 METHOD_CACHE，中缓存了 findSubscriberMethods 中注册过的类，有效的避免了重复注册过的类，再次通过反射去查找，提高性能
+
+### 线程模式的切换
+EventBus 提供了线程模式切换，可以在 Subscribe 注解中设置 threadMode。主要原理是在 postToSubscription 函数中，会判断 threadMode，然后放到对于的线程队列里去执行。
+
+## 总结
+EventBus 设计的大致思路是：
+1. 注册订阅者时，通过反射，把注解了 Subscribe 的方法保存到自己对于的 Map 数据项中；
+2. 发送消息时，从 Map 数据项中获取对应类型的订阅者，通过反射方法执行；
+3. 注销时，就会把订阅者中缓存到 Map 数据项的数据删除。
+
