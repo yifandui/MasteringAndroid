@@ -249,7 +249,7 @@ Type:
 - android:src
 &emsp;相关方法:	setImageResource(int)
 &emsp;官方解释:将可绘制的内容设置给ImageView
-ImageView显示图片有两种方式，android:background和android:src两种，虽然两种都能做到显示图片，但是还是有很大的区别的，在下面专门开设一个节点详细讲解一下
+
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190318221255862.png)
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190318221404278.png)
 ---
