@@ -124,7 +124,7 @@ textView.setCompoundDrawables(drawable, drawable, drawable, null);
 
 ![](../assets/textview/textview-setCompoundDrawables.jpeg)
 
-### Span
+### Span
 
 Span 是用于在Android中设置文本样式。Span是标记对象，它可以附着在一些文本上，比如一些短语或者一些文本段落。
 
@@ -269,7 +269,7 @@ mTvSpans.setText(spannableStringBuilder);
 
 ###### insert
 
-**SpannableStringBuilder.insert(int where, CharSequence tb)**这个方法可以在任意的位置插入任意的字符串。**当使用 insert 插入内容后，标记的点就转移，结束点后会后移，所以我们如果要在结束点插入内容，也需要需要相应的后移。所以需要再次计算结束点的时候需要注意**。
+`SpannableStringBuilder.insert(int where, CharSequence tb)` 这个方法可以在任意的位置插入任意的字符串。**当使用 insert 插入内容后，标记的点就转移，结束点后会后移，所以我们如果要在结束点插入内容，也需要需要相应的后移。所以需要再次计算结束点的时候需要注意**。
 
 ###### append
 
@@ -321,7 +321,7 @@ mTvSpans.setText(spannableStringBuilder);
 
 代码中我们标记的行为是将文字背景色改为绿色，当设置 `SPAN_INCLUSIVE_INCLUSIVE` 后，我们在 `start` 位置 插入的内容将文字背景色改为绿色，说明沿用了 `setSpan()` 时设置的行为；在 `end` 位置插入的内容将文字背景色改为绿色，说明沿用了 `setSpan()` 时设置的行为。
 
-######SPAN_EXCLUSIVE_EXCLUSIVE
+###### SPAN_EXCLUSIVE_EXCLUSIVE
 
 我们将上面代码中的 `flags` 改为 SPAN_EXCLUSIVE_EXCLUSIVE：
 
@@ -447,7 +447,7 @@ mTvBulletSpan.setText(builder);
 
 上面就是为了TextView实现局部点击而实现的ClickableSpan，接下来看 TextView 展示代码：
 
-```java 
+```java 
 String[] friends = {"Tom", "Jack", "Ricky", "Tony", "Robin", "周冬雨", "薇薇", "程序亦非猿", "Mr.S", "StarkSong", "Larry"};
 
 SpannableStringBuilder builder = new SpannableStringBuilder();
@@ -504,7 +504,7 @@ public void updateDrawState(@NonNull TextPaint ds) {
 但是当我们点击的时候会有粉红色的背景，这个怎么解决呢？我们可以通过设置TextView的高亮显示的颜色，来解决。
 
 ```java
-				String[] friends = {"Tom", "Jack", "Ricky", "Tony", "Robin", "周冬雨", "薇薇", "程序亦非猿", "Mr.S", "StarkSong", "Larry"};
+String[] friends = {"Tom", "Jack", "Ricky", "Tony", "Robin", "周冬雨", "薇薇", "程序亦非猿", "Mr.S", "StarkSong", "Larry"};
 
         SpannableStringBuilder builder = new SpannableStringBuilder();
         int len = friends.length;
@@ -640,7 +640,7 @@ mTvRelativeSizeSpan.setText(builder);
 
  效果如下：
 
-![RelativeSizeSpan](/Users/RickyLee/Library/Mobile Documents/com~apple~CloudDocs/github/MasteringAndroid/android/assets/textview/textview-RelativeSizeSpan.jpeg)
+![RelativeSizeSpan](../assets/textview/textview-RelativeSizeSpan.jpeg)
 
 ##### SubscriptSpan
 
