@@ -6,7 +6,7 @@
 
 ### 1. 导图
 
-![UIPerformance](https://github.com/sunxianglei/ImageLibrary/blob/master/images/UIPerformance.jpg?raw=true)
+![UIPerformance](../assets/uiperformance/UIPerformance.jpg)
 
 ### 2. 渲染原理
 
@@ -26,13 +26,13 @@ UI性能本质上是渲染性能，我们所遇到卡顿问题原因有很多，
 
 屏幕刷新率为 60hz 表示 16ms 就会执行一次刷新，若想要每次刷新我们都能看到不一样的绘制视图，那么就必须得保证帧率至少为 60fps，这样每一帧绘制时间都在 16ms 以下。帧率比这个屏幕刷新率大并不影响流畅度，因为 VSYNC 就是为控制帧率过快而存在的。而帧率比 60fps 小，那么就有可能让人感觉到卡顿，因为屏幕刷新了好几次，而画面一直不变。我们先理解下 VSYNC 和缓冲区的协作：
 
-![VSYNC](https://github.com/sunxianglei/ImageLibrary/blob/master/images/VSYNC.jpg?raw=true)
+![VSYNC](../assets/uiperformance/VSYNC.jpg)
 
 当 ①屏幕刷新信号 到时会从帧缓冲区取出一帧绘制数据渲染到屏幕上②更新视图，此时 ①VSYNC 信号会通知 CPU/GPU 开始 ②写入下帧数据 到后缓冲区（这里就能解释为什么帧率大于屏幕刷新率时可以控制为速率相等，因为即使一帧数据早已绘制完成，但下一帧的绘制必须等 VSYNC 信号到来才可以开始绘制），当后缓冲区在 16ms 内写入完成，这时就会将后缓冲区内的数据复制到帧缓冲区，帧缓冲区等待屏幕刷新信号来临。
 
 可是并不是每次都可以在 16ms 时间内从后缓冲区复制到帧缓冲区的，当某帧在 16ms 后依然在绘制，此时 VSYNC 信号来临，发现无法让下帧开始绘制，因此这次 VSYNC 信号是无效的，必须等到该帧写入后缓冲区结束后复制到帧缓冲区，这之后的 VSYNC 信号才有效，而这过程就丢帧了。
 
-![Double Buffer](https://github.com/sunxianglei/ImageLibrary/blob/master/images/Double_Buffer.jpg?raw=true)
+![Double Buffer](../assets/uiperformance/Double_Buffer.jpg)
 
 1. Display 表示屏幕，开始时它展示第 0 帧数据，第一个 VSYNC 信号已经通知 CPU/GPU 开始写入第一帧数据到后缓冲区（绘制数据是先由 CPU 计算数据然后再由 GPU 渲染数据）。
 2. 第二个 VSYNC 信号到来，Display 会从帧缓冲区获取数据并渲染到屏幕，同时会通知 CPU/GPU 开始写入第二帧数据到后缓冲区。
@@ -41,7 +41,7 @@ UI性能本质上是渲染性能，我们所遇到卡顿问题原因有很多，
 
 我们可以看到 CPU 可能早已完成计算，这时 GPU 还未完成绘制，这个时候 VSYNC 到来是无效的，这浪费了 CPU 的空闲时间，因此 google 引入了三缓冲机制。
 
-![Tripple Buffer](https://github.com/sunxianglei/ImageLibrary/blob/master/images/Tripple_Buffer.jpg?raw=true)
+![Tripple Buffer](../assets/uiperformance/Tripple_Buffer.jpg)
 
 Tripple Buffer三缓冲机制增加了一个后缓冲区（两个后缓冲区内部应该是以队列的形式存储，这样不会让帧顺序乱掉），三缓冲的优势是能充分利用 CPU 的空闲时间。
 
@@ -115,7 +115,7 @@ Tripple Buffer三缓冲机制增加了一个后缓冲区（两个后缓冲区内
 
 布局层级嵌套越深，measure、layout 遍历整颗 View 树的时间越久，这个是很好理解的。我们直接上例子，想要优化每个页面，直接用 Layout Inspector 检测该页面查看嵌套(对动态布局尤其有用)。
 
-![layout_pre](https://github.com/sunxianglei/ImageLibrary/blob/master/images/layout_pre.png?raw=true)
+![layout_pre](../assets/uiperformance/layout_pre.png)
 
 可以看到这个示例界面布局嵌套了三层，我们可以将其优化为一层。从前一般都是使用 RelativeLayout 减少嵌套，不过依然还是会有嵌套的情况。若是非常复杂的布局我们第一时间需要想到 ConstraintLayout，基本能用一层解决复杂页面。以下是使用 ConstraintLayout 布局后的检测：
 
@@ -150,7 +150,7 @@ protected void onDraw(Canvas canvas) {
 
 以上代码只是为了放大问题，现实中不会这么写。这个是自定义 View 主要的代码(表示一个绿色圆圈向下平移的过程, 具体效果可看demo)。模拟在 onDraw 方法内创建很多对象，这个时候开启 CPU Profiler, 现象如下图：
 
-![gc_churn](https://github.com/sunxianglei/ImageLibrary/blob/master/images/gc_churn.jpg?raw=true)
+![gc_churn](../assets/uiperformance/gc_churn.jpg)
 
 可以看到 GC 很频繁，虽然由于开启了 profiler 造成onDraw 耗时被放大了，但频繁 GC 确实会对主线程造成阻塞从而可能发生卡顿。优化代码如下：
 
@@ -230,7 +230,7 @@ protected void onDraw(Canvas canvas) {
 
 可以看下系统控件和自定义View优化前后的对比图：
 
-![overdraw](https://github.com/sunxianglei/ImageLibrary/blob/master/images/overdraw.png?raw=true)
+![overdraw](../assets/uiperformance/overdraw.png)
 
 采用以上方式基本就可以解决大部分过度绘制的问题，具体代码可见demo。
 
@@ -260,7 +260,7 @@ private void makeJank(){
 
 在动画执行过程中明显有「卡住」的感觉，这时我们就可以采用 CPU Profiler 工具来检测，如图所示：
 
-![cpu_profiler](https://github.com/sunxianglei/ImageLibrary/blob/master/images/cpu_profiler.jpg?raw=true)
+![cpu_profiler](../assets/uiperformance/cpu_profiler.jpg)
 
 工具提供了四种方式，你可以从图表分析，也可以直观的查看方法耗时。这样我们就能找出定位问题方法并解决了。
 
@@ -382,11 +382,11 @@ private int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, i
 
 压缩前：
 
-![systrace_bitmap_pre](https://github.com/sunxianglei/ImageLibrary/blob/master/images/systrace_bitmap_pre.png?raw=true)
+![systrace_bitmap_pre](../assets/uiperformance/systrace_bitmap_pre.png)
 
 压缩后:
 
-![systrace_bitmap_after](https://github.com/sunxianglei/ImageLibrary/blob/master/images/systrace_bitmap_after.png?raw=true)
+![systrace_bitmap_after](../assets/uiperformance/systrace_bitmap_after.png)
 
 ## 总结
 
