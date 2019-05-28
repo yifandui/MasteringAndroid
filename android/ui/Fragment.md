@@ -12,7 +12,7 @@
 
 ​	Fragment意为碎片，片段。在Google的官方文档介绍，Fragment是Activity中的行为或用户界面部分。
 
-​	我们可以把多个Fragment放到一个Activity里，也可以把一个Fragment在多个Activity里复用。我们可以把Fragment理解为Activity的一个模块。它有自己的生命周期，它可以响应自己的交互事件。在程序运行中我们可以随意的在Activity中把添加或者移除Fragment。
+​	我们可以把多个Fragment放到一个Activity里，也可以把一个Fragment在多个Activity里复用。我们可以把Fragment理解为Activity的一个模块。它有自己的生命周期，它可以响应自己的交互事件。在程序运行中我们可以随意的在Activity中添加或者移除Fragment。
 
 ​	Fragment 必须始终嵌入在 Activity 中，其生命周期直接受宿主 Activity 生命周期的影响。例如，当 Activity 暂停时，其中的所有片段也会暂停；当 Activity 被销毁时，其中的所有 Fragment 也会被销毁。 在Fragment应用中有一个事务的概念，我们可以通过Fragment的事务，来操作Fragment。当 Activity 正在运行时，我们可以独立操作每个Fragment，通过事务添加或移除它们。 当执行这些事务时，我们也可以将其添加到由 Activity 管理的回退栈；回退栈(back stack )中的每个实体都是一条已经提交的关于Fragment的事务(FragmentTransaction)的记录。 回退栈(back stack )让用户可以通过从回退栈中弹出Fragment事务的方式来达到回退的效果。
 
@@ -1010,7 +1010,7 @@ public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup c
 
 ### 其它
 
-​	上面的关于Fragment的代码，我们都提供了Fragment的无参构造，为什么呢？因为在Fragment在恢复状态时会用到这个无参构造，如果不提供的话就会报 InstantiationException 。具体的源码我们可用在Fragment中查到
+​	上面关于Fragment的代码，我们都提供了Fragment的无参构造，为什么呢？因为在Fragment在恢复状态时会用到这个无参构造，如果不提供的话就会报 InstantiationException 。具体的源码我们可用在Fragment中查到，如下：
 
 ```java
 public static Fragment instantiate(Context context, String fname, @Nullable Bundle args) {
@@ -1056,7 +1056,15 @@ public static Fragment instantiate(Context context, String fname, @Nullable Bund
 Fragment f = (Fragment) clazz.getConstructor().newInstance();
 ```
 
+### 总结
 
+​	Fragment是一个轻量级的，可复用的，模块化的UI组件。它的出现可以很多的解决Activity太重导致无法更细粒度的复用的问题。Fragment有自己的生命周期。Fragment 必须始终嵌入在 Activity 中，其生命周期直接受宿主 Activity 生命周期的影响。Fragment 不是必须要做为Activity布局的一部分，我们可以将没有UI的Fragment左右Activity中的一个不可见的工作线程。
+
+​	Fragment可以直接在布局中使用 `<fragment>` 标签静态添加，也可以在程序运行过程中通过FragmentManager动态的添加。我们也可以通过FragmentManager 对Fragment进行隐藏，显示等操作。同时我们还可以将这些操作放入的回退栈中，以备回退到上一步操作。
+
+​	Fragment与Activity 进行交互的常规方式就是使用接口回调。
+
+​	一般的我们要在Fragment中添加一个无参构造。否则在Fragment在恢复状态时会报 InstantiationException 。
 
 参考：
 
