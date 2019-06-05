@@ -3,7 +3,7 @@
 >
 > 作者：岳晓辉
 >
-> 审阅者：
+> 审阅者：程序亦非猿
 >
 > 贡献者：
 
@@ -35,7 +35,7 @@ RecyclerView 需要布局管理器去管理view以哪一种方式展示给用户
 4. 创建item的布局
 5. 创建`RecyclerView.Adapter`和`ViewHolder`
 6. RecyclerView绑定Adapter
-   
+  
 
 ### 添加依赖库
 ```gradle

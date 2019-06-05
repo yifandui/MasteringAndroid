@@ -4,7 +4,7 @@
 >
 > 作者：Stig.Li
 >
-> 审阅者：
+> 审阅者：程序亦非猿
 >
 > 贡献者：
 
@@ -12,11 +12,14 @@
 
 ### 知识点简介
 
-Material Design于Google I/O 2014 发布,是一套适用于 Android Mobile、Android Table、Desktop Chrome 等全平台设计语言规范,在Android 5.0（API级别21）中引入(以下简称为MD)。相对于iOS的扁平化风格来说,新出的MD设计规范在界面风格上挽回不少颜面。UI设计师偏爱的设计风格为iOS扁平风，一套设计模板共用Android和
-iOS，应该是众多中小型公司的通用策略。但是在iOS9以后的iOS系统中出现很多借鉴MD设计风格的控件，足矣说明MD设计的魅力所在.
-在Android5.0之前，用Android原生系统控件做出来的应用可以说是不忍直视，Android5.0之后，谷歌提供MD设计风格Design Support Library控件库，大大的提高了应用美观程度，而且
-支持Android 2.1以上设备。至此以后整个Android生态环境中MD风格的APP越来越多，美观度方面丝毫不逊色于iOS的应用风格。
+Material Design于Google I/O 2014 发布,是一套适用于 Android Mobile、Android Table、Desktop Chrome 等全平台设计语言规范,在Android 5.0（API级别21）中引入(以下简称为MD)。
+
+相对于iOS的扁平化风格来说,新出的MD设计规范在界面风格上挽回不少颜面。UI设计师偏爱的设计风格为iOS扁平风，一套设计模板共用 Android 和 iOS，应该是众多中小型公司的通用策略。但是在iOS9以后的iOS系统中出现很多借鉴MD设计风格的控件，足矣说明MD设计的魅力所在。
+
+在Android5.0之前，用Android原生系统控件做出来的应用可以说是不忍直视，Android5.0之后，谷歌提供MD设计风格Design Support Library控件库，大大的提高了应用美观程度，而且支持Android 2.1以上设备。至此以后整个Android生态环境中MD风格的APP越来越多，美观度方面丝毫不逊色于iOS的应用风格。
+
 当Android开发者需要开发一款APP而苦于没有UI设计的时候，我们完全可以用Design Support Library控件库去实现。
+
 最主要的就是能节省大量开发时间而又能保证界面美观性。
 
 本文章主要讲解的是Material Design for Android常用组件的基本使用。
@@ -87,37 +90,37 @@ Design Support库的使用
 	**TextInputLayout**还有一个错误提示属性,以下为使用方式
 	
 		String username = etUsername.getText().toString().trim();
-        if (!TextUtils.isEmpty(username) && username.length() < 16) {
-             layoutAccount.setError("用户名符合要求");
-             layoutAccount.setErrorEnabled(true);
-             layoutAccount.setErrorTextColor(ColorStateList.valueOf(Color.GREEN));
-         } else {
-             layoutAccount.setError("用户名不符合要求");
-             layoutAccount.setErrorEnabled(true);
-             layoutAccount.setErrorTextColor(ColorStateList.valueOf(Color.RED));
-         }
-        String pwd = etPwd.getText().toString().trim();
-         if (!TextUtils.isEmpty(pwd) && pwd.length() >= 6 && pwd.length() < 12) {
-             layoutPassword.setError("密码符合要求");
-             layoutPassword.setErrorEnabled(true);
-             layoutPassword.setErrorTextColor(ColorStateList.valueOf(Color.GREEN));
-          } else {
-             layoutPassword.setError("密码不符合要求");
-             layoutPassword.setErrorEnabled(true);
-             layoutPassword.setErrorTextColor(ColorStateList.valueOf(Color.RED));
-          }
-          String tel = Objects.requireNonNull(tietPhone.getText()).toString().trim();
-          if (tel.length() > 0 && tel.length() == 11) {
-             layoutPhone.setError("电话号码符合要求");
-             layoutPhone.setErrorEnabled(true);
-             layoutPhone.setErrorTextColor(ColorStateList.valueOf(Color.GREEN));
-           } else {
-             layoutPhone.setError("电话号码不符合要求");
-             layoutPhone.setErrorEnabled(true);
-             layoutPhone.setErrorTextColor(ColorStateList.valueOf(Color.RED));
-           }		
-           
-      运用以上布局代码实现的效果如下图
+  	  if (!TextUtils.isEmpty(username) && username.length() < 16) {
+  	       layoutAccount.setError("用户名符合要求");
+  	       layoutAccount.setErrorEnabled(true);
+  	       layoutAccount.setErrorTextColor(ColorStateList.valueOf(Color.GREEN));
+  	   } else {
+  	       layoutAccount.setError("用户名不符合要求");
+  	       layoutAccount.setErrorEnabled(true);
+  	       layoutAccount.setErrorTextColor(ColorStateList.valueOf(Color.RED));
+  	   }
+  	  String pwd = etPwd.getText().toString().trim();
+  	   if (!TextUtils.isEmpty(pwd) && pwd.length() >= 6 && pwd.length() < 12) {
+  	       layoutPassword.setError("密码符合要求");
+  	       layoutPassword.setErrorEnabled(true);
+  	       layoutPassword.setErrorTextColor(ColorStateList.valueOf(Color.GREEN));
+  	    } else {
+  	       layoutPassword.setError("密码不符合要求");
+  	       layoutPassword.setErrorEnabled(true);
+  	       layoutPassword.setErrorTextColor(ColorStateList.valueOf(Color.RED));
+  	    }
+  	    String tel = Objects.requireNonNull(tietPhone.getText()).toString().trim();
+  	    if (tel.length() > 0 && tel.length() == 11) {
+  	       layoutPhone.setError("电话号码符合要求");
+  	       layoutPhone.setErrorEnabled(true);
+  	       layoutPhone.setErrorTextColor(ColorStateList.valueOf(Color.GREEN));
+  	     } else {
+  	       layoutPhone.setError("电话号码不符合要求");
+  	       layoutPhone.setErrorEnabled(true);
+  	       layoutPhone.setErrorTextColor(ColorStateList.valueOf(Color.RED));
+  	     }		
+  	     
+  	运用以上布局代码实现的效果如下图
 	![md_textinputlayout_error.png](./assets/md_textinputlayout_error.png)
 	
 
@@ -185,7 +188,7 @@ Design Support库的使用
 
 
 4. **TabLayout**
-   
+  
    **TabLayout**应该搭配**TabItem**一起使用,作为选项卡组件使用，同时中间选项卡容器可搭配**ViewPager**等容器使用。
    基础使用方法如下
    
@@ -300,78 +303,78 @@ Design Support库的使用
 
 
 	AppBarLayout是一种支持响应滚动手势的app bar布局（比如工具栏滚出或滚入屏幕），CollapsingToolbarLayout则是专门用来实现子布局内不同元素响应滚动细节的布局。与AppBarLayout组合的滚动布局（Recyclerview、NestedScrollView等）需要设置app:layout_behavior这个属性。没有设置的话，AppBarLayout将不会响应滚动布局的滚动事件。
-
+	
 	注意:CollapsingToolbarLayout和ScrollView一起使用会有滑动bug，注意要使用NestedScrollView来替代ScrollView。
 	
 	**CollapsingToolbarLayout**可以通过app:contentScrim设置折叠时工具栏布局的颜色，通过app:statusBarScrim设置折叠时状态栏的颜色。默认contentScrim是colorPrimary的色值，statusBarScrim是colorPrimaryDark的色值。
-
+	
 	**CollapsingToolbarLayout**的子布局有3种折叠模式（Toolbar中设置的app:layout_collapseMode）
-
+	
 		off：这个是默认属性，布局将正常显示，没有折叠的行为。
 		pin：CollapsingToolbarLayout折叠后，此布局将固定在顶部。
 		parallax：CollapsingToolbarLayout折叠时，此布局也会有视差折叠效果。
 当CollapsingToolbarLayout的子布局设置了parallax模式时，我们还可以通过app:layout_collapseParallaxMultiplier设置视差滚动因子，值为：0~1。
 
 	那我们将利用**AppBarLayout**和**CollapsingToolbarLayout**来实现一个ScrollingActivity，以下为xml布局代码
-
+	
 	```
 	<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".ScrollingActivity">
-
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
-        android:fitsSystemWindows="true"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.widget.NestedScrollView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:text="@string/large_text" />
-
-    </android.support.v4.widget.NestedScrollView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
-
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:fitsSystemWindows="true"
+	tools:context=".ScrollingActivity">
+	
+	<android.support.design.widget.AppBarLayout
+	    android:id="@+id/app_bar"
+	    android:layout_width="match_parent"
+	    android:layout_height="@dimen/app_bar_height"
+	    android:fitsSystemWindows="true"
+	    android:theme="@style/AppTheme.AppBarOverlay">
+	
+	    <android.support.design.widget.CollapsingToolbarLayout
+	        android:id="@+id/toolbar_layout"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:fitsSystemWindows="true"
+	        app:contentScrim="?attr/colorPrimary"
+	        app:layout_scrollFlags="scroll|exitUntilCollapsed"
+	        app:toolbarId="@+id/toolbar">
+	
+	        <android.support.v7.widget.Toolbar
+	            android:id="@+id/toolbar"
+	            android:layout_width="match_parent"
+	            android:layout_height="?attr/actionBarSize"
+	            app:layout_collapseMode="pin"
+	            app:popupTheme="@style/AppTheme.PopupOverlay" />
+	
+	    </android.support.design.widget.CollapsingToolbarLayout>
+	</android.support.design.widget.AppBarLayout>
+	
+	<android.support.v4.widget.NestedScrollView
+	    xmlns:app="http://schemas.android.com/apk/res-auto"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+	
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="@dimen/text_margin"
+	        android:text="@string/large_text" />
+	
+	</android.support.v4.widget.NestedScrollView>
+	
+	<android.support.design.widget.FloatingActionButton
+	    android:id="@+id/fab"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_margin="@dimen/fab_margin"
+	    app:layout_anchor="@id/app_bar"
+	    app:layout_anchorGravity="bottom|end"
+	    app:srcCompat="@android:drawable/ic_dialog_email" />
+	
 	```
 	记得要在Activity中加上这句代码哦
 	
@@ -382,7 +385,7 @@ Design Support库的使用
 	以上就是利用**AppBarLayout**和**CollapsingToolbarLayout**实现的Scrolling效果，还可以设置AppBarLayout的滑动监听、修改透明度和颜色变化等，有兴趣可以研究下用AppBarLayout和CollapsingToolbarLayout实现更棒的效果。
 	
 	![md_scrolling.gif](./assets/md_scrolling.gif)
-	
+
 9. **MaterialButton**
 
 	**MaterialButton**是Material风格的Button,使用时需要同时设置android:textAllCaps和android: textAppearance,增加了**MaterialButton**对圆角、线宽、图片颜色、图片尺寸等方式的，其余使用方法与原生Botton基本一样。总之大大方便我们对Button的使用。
@@ -412,8 +415,7 @@ Design Support库的使用
 	
 	效果图:
 	![md-materialbutton.png](./assets/md-materialbutton.png)
-    
-
+  
 10. **Chip** & **ChipGroup**
 
 	Chip的用法和分类:
@@ -430,7 +432,7 @@ Design Support库的使用
 通常应用在 ChipGroup 中
 
 	**Entry Chip**
-	 
+	
 	 使用style="@style/Widget.MaterialComponents.Chip.Entry"
 默认在末尾展示删除按钮；点击后前面展示选中图标，有选中状态通常可以作为 chipDrawable 使用，比如在填选邮件收件人时可以使用
 
@@ -628,7 +630,6 @@ Design Support库的使用
     </HorizontalScrollView>
 	```
 	
-	
 11. **MaterialCardView**
 	**MaterialCardView**继承至**CardView**，基础用法基本跟CardView一致，新增 app:strokeColor、app:strokeWidth两个属性，主要用来控制边框线宽和颜色。MaterialCardView可搭配RecycleView等一起使用。MaterialCardView的特性主要有边框圆角效果、阴影效果、Ripple水波纹效果等,还可以自定义属性动画。
 	
@@ -648,13 +649,14 @@ Design Support库的使用
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_launcher" />
+  ```
 
 
     </android.support.design.card.MaterialCardView>
-	```
-	效果图
-	![md_materialcardview.png](./assets/md_materialcardview.png)
-	
+    ```
+    效果图
+    ![md_materialcardview.png](./assets/md_materialcardview.png)
+
 
 
 ### 学习路线以及阅读的资料推荐
