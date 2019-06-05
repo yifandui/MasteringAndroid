@@ -18,7 +18,7 @@
 
 ​	当我们将Fragment作为Activity布局的一部分添加到Activity中时，Fragment会存在于Activity的布局结构中的某个ViewGroup中。Fragment可以定义自己的布局，我们可以在布局文件中添加 Fragment ，将其作为一个`<fragment>`标签插入到Activity布局中。我们也可以通过Java代码将Fragment添加到一个已有的ViewGroup中。
 
-​	**Fragment 不是必须要做为Activity布局的一部分，我们可以将没有UI的Fragment左右Activity中的一个不可见的工作线程**。Glide 中就存在两种无界面的Fragment用来存放RequestManager。([RequestManagerFragment](<https://github.com/bumptech/glide/blob/master/library/src/main/java/com/bumptech/glide/manager/RequestManagerFragment.java>)，[SupportRequestManagerFragment](<https://github.com/bumptech/glide/blob/master/library/src/main/java/com/bumptech/glide/manager/SupportRequestManagerFragment.java>))。
+​	**Fragment 不是必须要做为Activity布局的一部分，我们可以将没有UI的Fragment作为Activity中的一个不可见的工作线程**。Glide 中就存在两种无界面的Fragment用来存放RequestManager。([RequestManagerFragment](<https://github.com/bumptech/glide/blob/master/library/src/main/java/com/bumptech/glide/manager/RequestManagerFragment.java>)，[SupportRequestManagerFragment](<https://github.com/bumptech/glide/blob/master/library/src/main/java/com/bumptech/glide/manager/SupportRequestManagerFragment.java>))。
 
 ​	**Fragment是一个轻量级的，可复用的，模块化的UI组件。**
 
