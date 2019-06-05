@@ -18,7 +18,7 @@
 
 ​	当我们将Fragment作为Activity布局的一部分添加到Activity中时，Fragment会存在于Activity的布局结构中的某个ViewGroup中。Fragment可以定义自己的布局，我们可以在布局文件中添加 Fragment ，将其作为一个`<fragment>`标签插入到Activity布局中。我们也可以通过Java代码将Fragment添加到一个已有的ViewGroup中。
 
-​	**Fragment 不是必须要做为Activity布局的一部分，我们可以将没有UI的Fragment左右Activity中的一个不可见的工作线程**。Glide 中就存在两种无界面的Fragment用来存放RequestManager。([RequestManagerFragment](<https://github.com/bumptech/glide/blob/master/library/src/main/java/com/bumptech/glide/manager/RequestManagerFragment.java>)，[SupportRequestManagerFragment](<https://github.com/bumptech/glide/blob/master/library/src/main/java/com/bumptech/glide/manager/SupportRequestManagerFragment.java>))。
+​	**Fragment 不是必须要做为Activity布局的一部分，我们可以将没有UI的Fragment作为Activity中的一个不可见的工作线程**。Glide 中就存在两种无界面的Fragment用来存放RequestManager。([RequestManagerFragment](<https://github.com/bumptech/glide/blob/master/library/src/main/java/com/bumptech/glide/manager/RequestManagerFragment.java>)，[SupportRequestManagerFragment](<https://github.com/bumptech/glide/blob/master/library/src/main/java/com/bumptech/glide/manager/SupportRequestManagerFragment.java>))。
 
 ​	**Fragment是一个轻量级的，可复用的，模块化的UI组件。**
 
@@ -589,7 +589,9 @@ public class InteractionActivity extends AppCompatActivity implements Interactio
 
 ### Fragment 传递参数
 
-Fragment 提供了一个 `setArguments (Bundle args)` 方法，用来在 Fragment 加入到 FragmentManager之前给 Fragment 传递一个构造参数。这里的 `args` 会一直保存到 Fragment 的销毁，它会贯穿Fragment的创建到销毁。一般我们会在Fragment中提供一个静态的方法，来给Fragment传递参数。
+​	在Fragment的API文档中强调，不要通过Fragment的子类在构造函数中添加参数的方式传递参数，如果需要传递参数需要用到 `setArguments (Bundle args)` , 并且可以通过 `getArguments()`来获取设置参数。Fragment仅仅提供了一个无参构造，并且它的子类必须存在一个无参构造，否则会出问题，至于为什么后面详说。
+
+​	Fragment 提供的 `setArguments (Bundle args)` 方法，可以在 Fragment 加入到 FragmentManager之前给 Fragment 传递一个实例化参数，这个参数是Fragment实例化时的非必要参数，在 Fragment 实例化时，会对这个参数进行判空操作。这里的 `args` 会一直保存到 Fragment 的销毁，它会贯穿Fragment的创建到销毁。一般我们会在Fragment中提供一个静态的方法，来给Fragment传递参数。
 
 ```java
     public static CityFragment newInstance(ArrayList<String> cities) {
@@ -601,7 +603,7 @@ Fragment 提供了一个 `setArguments (Bundle args)` 方法，用来在 Fragmen
     }
 ```
 
-`setArguments (Bundle args)` 的典型的使用场景就是在 ViewPager 中嵌套 Fragment 。下面提供一个例子，ViewPager 在Activity中嵌套若干个Fragment，这里使用了 TabLayout ，用来更好的区分ViewPager 滑动.
+​	`setArguments (Bundle args)` 的典型的使用场景就是在 ViewPager 中嵌套 Fragment 。下面提供一个例子，ViewPager 在Activity中嵌套若干个Fragment，这里使用了 TabLayout ，用来更好的区分ViewPager 滑动.
 
 下面的Activity，提供了一个ViewPager 和 TabLayout :
 
