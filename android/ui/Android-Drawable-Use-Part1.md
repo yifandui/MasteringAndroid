@@ -1,9 +1,3 @@
-> 文章来源：MasteringAndroid
->
-> 作者：管鹏杰
->
-> 审阅者：
-
 ## 1. 概述
 
 在实际开发的过程中，除了广为人知的利用 StateListDrawable 设置按钮点击特效，我们有时可能会接到一些这样的需求，比如要求我们的头像显示成圆形或者圆角矩形，甚至要加上可变颜色的边框，或者要求你做一套启动、暂停、快进和快退的视频控制按钮并且可以改变按钮图标颜色。可能某些时候第一反应就是用自定义 View 来实现，但是如果熟悉了 Drawable 的用法之后，这些效果同样可以利用它来完成，而选择哪种 Drawable 来实现也大有讲究。
@@ -1171,3 +1165,7 @@ class TransitionDrawableActivity : AppCompatActivity() {
 
 
 好了，传统的 Drawable 就介绍完了，但是随着 Android 版本的更新，Drawable 家族也不断得有新成员加入进来，让开发者有了更多的选择，下一部分文章，我将介绍从 Android 5.0(API 21) 之后加入进来的几个成员。
+
+
+
+**附：文章中的 Demo 地址：[https://github.com/guanpj/DrawableDemo](https://github.com/guanpj/DrawableDemo)**

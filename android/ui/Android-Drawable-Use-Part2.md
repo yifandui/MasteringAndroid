@@ -596,3 +596,8 @@ class AnimatedVectorDrawableActivity : AppCompatActivity() {
 
 ![](https://my-bucket-1251125515.cos.ap-guangzhou.myqcloud.com/Blog-Article/Android-Drawable-Use/animated-state-list-drawable.gif)
 
+
+
+到此，常见的 Drawable 的用法已经全部讲完了，如果要加深理解，建议把 Demo 跑一遍。
+
+**附：文章中的 Demo 地址：[https://github.com/guanpj/DrawableDemo](https://github.com/guanpj/DrawableDemo)**
