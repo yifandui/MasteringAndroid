@@ -4,7 +4,7 @@
 >
 > 审阅者：
 
-## 0. 概述
+## 1. 概述
 
 在实际开发的过程中，除了广为人知的利用 StateListDrawable 设置按钮点击特效，我们有时可能会接到一些这样的需求，比如要求我们的头像显示成圆形或者圆角矩形，甚至要加上可变颜色的边框，或者要求你做一套启动、暂停、快进和快退的视频控制按钮并且可以改变按钮图标颜色。可能某些时候第一反应就是用自定义 View 来实现，但是如果熟悉了 Drawable 的用法之后，这些效果同样可以利用它来完成，而选择哪种 Drawable 来实现也大有讲究。
 
@@ -14,11 +14,11 @@
 
 本系列文章将分为两个部分，介绍其中大部分 Drawable 的用法。
 
-## 1. BitmapDrawable
+## 2. BitmapDrawable
 
 BitmapDrawable 可以看作是对 Bitmap 的一种包装，它可以设定 Bitmap 的显示方式、位置等属性。
 
-### 1.1 语法
+### 2.1 语法
 
 BitmapDrawable 对应 **\<bitmap\>** 标签定义，xml 语法如下：
 
@@ -49,7 +49,7 @@ BitmapDrawable 对应 **\<bitmap\>** 标签定义，xml 语法如下：
 |  mipMap   |             启用或停用 mipmap 提示，默认为 false             |
 | tileMode  | 平铺模式。默认：disable；clamp：复制边沿的颜色；repeat：水平和垂直方向重复绘制图片；mirror：水平和垂直方向交替镜像进行重复绘制 |
 
-### 1.2 用法示例
+### 2.2 用法示例
 
 下面以定义一个使用图片作为背景的 Drawable 为例，展示 BitmapDrawable 的简单实用方法。
 
@@ -94,7 +94,7 @@ BitmapDrawable 对应 **\<bitmap\>** 标签定义，xml 语法如下：
 
 ![bitmap-drawable](https://my-bucket-1251125515.cos.ap-guangzhou.myqcloud.com/Blog-Article/Android-Drawable-Use/bitmap-drawable.jpg)
 
-## 2. ShapeDrawable 和 GradientDrawable
+## 3. ShapeDrawable 和 GradientDrawable
 
 官方文档中对 [ShapeDrawable](<https://developer.android.com/reference/android/graphics/drawable/ShapeDrawable.html?hl=zh-CN>) 的定义是这样的：
 
@@ -112,7 +112,7 @@ BitmapDrawable 对应 **\<bitmap\>** 标签定义，xml 语法如下：
 
 根据描述可知，它是一个具有色彩梯度（color gradient）的 Drawable。
 
-### 2.1 语法
+### 3.1 语法
 
 GradientDrawable 和 ShapeDrawable 都采用 *shape*  标签来定义，和 ShapeDrawable 最大的不同的就是它拥有 *gradient* 属性，下面以 GradientDrawable 为例，讲解 *shape* 标签的用法，它的语法如下：
 
@@ -236,7 +236,7 @@ GradientDrawable 和 ShapeDrawable 都采用 *shape*  标签来定义，和 Shap
 
 需要注意的是，如果需要设置边框虚线效果，则需要同时设置 dashWidth 和 dashGap 的值不为 0，否则无法显示虚线效果。
 
-### 2.2 用法示例
+### 3.2 用法示例
 
 下面以定义一个圆角并带有其他效果的 Drawable 为例，展示 GradientDrawable 的简单用法。
 
@@ -312,11 +312,11 @@ GradientDrawable 和 ShapeDrawable 都采用 *shape*  标签来定义，和 Shap
 
 ![gradient-drawable](https://my-bucket-1251125515.cos.ap-guangzhou.myqcloud.com/Blog-Article/Android-Drawable-Use/gradient-drawable.jpg)
 
-## 3. StateListDrawable
+## 4. StateListDrawable
 
 StateListDrawable 可以根据对象的状态并使用不同的 item(Drawable) 对象来表示同一个图形。如可以根据 Button 的状态（按下、获取焦点等）来显示不同的 Drawable 从而实现点击的效果。
 
-### 3.1 语法
+### 4.1 语法
 
 定义 StateListDrawable 的语法格式如下：
 
@@ -382,7 +382,7 @@ StateListDrawable 的根标签为 **\<selector\>，**各个属性标签的含义
 |     android:state_active     |             是否处于激活状态             |
 | android:state_window_focused |          是否窗口已得到焦点状态          |
 
-### 3.2 用法示例
+### 4.2 用法示例
 
 下面以定制一个具有点击效果 Button 的背景为例，展示 StateListDrawable 的用法。
 
@@ -442,11 +442,11 @@ StateListDrawable 的根标签为 **\<selector\>，**各个属性标签的含义
 
 ![state-list-drawable](https://my-bucket-1251125515.cos.ap-guangzhou.myqcloud.com/Blog-Article/Android-Drawable-Use/state-list-drawable.gif)
 
-## 4. LayerDrawable
+## 5. LayerDrawable
 
 LayerDrawable 是管理 Drawable 列表的 Drawable。列表中的每个 item 按照列表的顺序绘制，列表中的最后 item 绘于顶部。
 
-### 4.1 语法
+### 5.1 语法
 
 定义 LayerDrawable 的语法格式如下：
 
@@ -460,7 +460,10 @@ LayerDrawable 是管理 Drawable 列表的 Drawable。列表中的每个 item �
         android:top="dimension"
         android:right="dimension"
         android:bottom="dimension"
-        android:left="dimension" />
+        android:left="dimension" 
+        android:gravity=["top" | "bottom" | "left" | "right" | "center_vertical" |
+                          "fill_vertical" | "center_horizontal" | "fill_horizontal" |
+                          "center" | "fill" | "clip_vertical" | "clip_horizontal"] />
 </layer-list>
 ```
 
@@ -469,10 +472,11 @@ LayerDrawable 顶层标签为 **\<layer-list\>**，它可以包含多个 **\<ite
 |                           属性                           |                             含义                             |
 | :------------------------------------------------------: | :----------------------------------------------------------: |
 |                     android:drawable                     |            drawable 资源，可引用现有的的 Drawable            |
-|                        android:id                        | iitem 的 id，使用"@+id/*name*"的形式表示。可通过 View.findViewById() 或者 Activity.findViewById() 方法查找到这个 Drawable |
+|                        android:id                        | item 的 id，使用"@+id/*name*"的形式表示。可通过 View.findViewById() 或者 Activity.findViewById() 方法查找到这个 Drawable |
 | android:top、android:right、android:bottom、android:left |           Drawable 相对于 View 在各个方向的偏移量            |
+|                     android:gravity                      |             尺寸小于容器尺寸时在容器中的摆放位置             |
 
-### 4.2 用法示例
+### 5.2 用法示例
 
 下面以定义一个圆角并带阴影效果的 Drawable 为例，展示 LayerDrawable 的简单使用。
 
@@ -546,6 +550,8 @@ LayerDrawable 顶层标签为 **\<layer-list\>**，它可以包含多个 **\<ite
 **效果图**
 
 ![gradient-drawable](https://my-bucket-1251125515.cos.ap-guangzhou.myqcloud.com/Blog-Article/Android-Drawable-Use/layer-drawable.jpg)
+
+### 
 
 ## 6. LevelListDrawable
 
