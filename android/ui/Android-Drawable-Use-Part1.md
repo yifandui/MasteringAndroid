@@ -846,7 +846,7 @@ class ScaleDrawableActivity : AppCompatActivity() {
 
 与 ScaleDrawable 原理相同，ClipDrawable 则可以根据 level 值动态地将 Drawable 进行一定比例的剪裁。当 level 的取值范围为 [0, 10000]，当 level 为 0 时表示隐藏；当 level 值为 1 时，Drawable 的大小为初始化时的剪裁比例，当 level 值为 10000 时，Drawable 大小为 100% 剪裁比例。
 
-### 8.1 语法
+### 9.1 语法
 
 定义 ClipDrawable 的语法规则如下：
 

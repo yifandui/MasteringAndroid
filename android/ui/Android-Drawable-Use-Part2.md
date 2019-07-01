@@ -49,7 +49,7 @@ ripple 完全扩散开始的半径。默认会根据容器大小来计算。
 | android:top、android:right、android:bottom、android:left |           Drawable 相对于 View 在各个方向的偏移量            |
 |                     android:gravity                      |             尺寸小于容器尺寸时在容器中的摆放位置             |
 
-### 5.2 用法示例
+### 11.2 用法示例
 
 **定义**
 
