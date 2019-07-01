@@ -409,7 +409,7 @@ class AnimatedVectorDrawableActivity : AppCompatActivity() {
 
 ![animated-vector-drawable](https://my-bucket-1251125515.cos.ap-guangzhou.myqcloud.com/Blog-Article/Android-Drawable-Use/animated-vector-drawable.gif)
 
-## 14 AnimatedStateListDrawable
+## 14. AnimatedStateListDrawable
 
 前面提到的 StateListDrawable 只能使用静态的资源在不同的状态之间进行切换，同样的，在 Android 5.0 之后，状态列表里可以使用动态资源了，它就是 **AnimatedStateListDrawable**。
 
@@ -596,7 +596,48 @@ class AnimatedVectorDrawableActivity : AppCompatActivity() {
 
 ![](https://my-bucket-1251125515.cos.ap-guangzhou.myqcloud.com/Blog-Article/Android-Drawable-Use/animated-state-list-drawable.gif)
 
+## 15. AnimatedImageDrawable
 
+大家都知道，在 Android 8.0 之前，如果我们要在设备上显示 GIF 图，一般都要借助一些第三方的库（如 Glide）来实现。记得 Android 8.0 刚发布的时候，提到一个 [ImageDecoder](https://developer.android.com/reference/android/graphics/ImageDecoder.html) 类，它除了可以解析 PNG、JEPG 类型的文件之外，还可以解析 WebP 和 GIF，而 GIF 文件解析出来的正是 AnimatedImageDrawable。由于目前资源有限，Google 也没有提供使用 XML 来定义 AnimatedImageDrawable   的例子，这里就在 Kotlin 代码里面介绍 AnimatedImageDrawable 和 ImageDecoder 的简单使用。
+
+**使用**
+
+```kotlin
+@RequiresApi(Build.VERSION_CODES.P)
+class AnimatedImageDrawableActivity : AppCompatActivity() {
+    var mAnimatedImageDrawable: AnimatedImageDrawable? = null
+
+    private val cacheAsset: CacheAsset by lazy {
+        CacheAsset(this)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_animated_image_drawable)
+
+        button.setOnClickListener {
+            ImageDecoder.createSource(cacheAsset.file("gif_example.gif")).also { source ->
+                ImageDecoder.decodeDrawable(source).also { drawable ->
+                    image.setImageDrawable(drawable)
+                    if(drawable is AnimatedImageDrawable) {
+                        mAnimatedImageDrawable = drawable
+                        drawable.start()
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mAnimatedImageDrawable?.run { stop() }
+    }
+}
+```
+
+**效果图**
+
+![animated-image-drawable](https://my-bucket-1251125515.cos.ap-guangzhou.myqcloud.com/Blog-Article/Android-Drawable-Use/animated-image-drawable.gif)
 
 到此，常见的 Drawable 的用法已经全部讲完了，如果要加深理解，建议把 Demo 跑一遍。
 

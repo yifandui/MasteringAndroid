@@ -1166,6 +1166,4 @@ class TransitionDrawableActivity : AppCompatActivity() {
 
 好了，传统的 Drawable 就介绍完了，但是随着 Android 版本的更新，Drawable 家族也不断得有新成员加入进来，让开发者有了更多的选择，下一部分文章，我将介绍从 Android 5.0(API 21) 之后加入进来的几个成员。
 
-
-
 **附：文章中的 Demo 地址：[https://github.com/guanpj/DrawableDemo](https://github.com/guanpj/DrawableDemo)**
