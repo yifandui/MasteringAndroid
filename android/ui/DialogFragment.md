@@ -10,15 +10,15 @@
 2. 分为 v4 包下的和android.app 包下的，我们使用 v4 包下的， android.app 包下的 DialogFragment 在 Android28 版本上已经被标记为弃用了。
 3. 继承与 Fragment ，拥有 Fragment 所有的特性。DialogFragment 里面内嵌了一个 Dialog。
 #### 和 Dialog 的区别：
-- 相比较 Dialog 来说，DialogFragment 其内嵌了一个 Dialog ，并对它进行一些灵活的管理，并且在 Activity  被异常销毁后重建的时候，DialogFragment 也会跟着重建，但是单独使用 Dialog 并不会。而且我们可以在 DialogFragment 的 onSaveInstanceState 方法中保存一些我们的数据，DialogFragment 跟着 Activity 重建的时候，从 onRestoreInstanceState 中取出数据，恢复页面显示。
+- 相比较 Dialog 来说，DialogFragment 其内嵌了一个 Dialog ，并对它进行一些灵活的管理，并且在 Activity  被异常销毁后重建的时候，DialogFragment 也会跟着重建，单独使用 Dialog 就不会。而且我们可以在 DialogFragment 的 onSaveInstanceState 方法中保存一些我们的数据，DialogFragment 跟着 Activity 重建的时候，从 onRestoreInstanceState 中取出数据，恢复页面显示。
 - Dialog 不适合复杂UI，而且不适合弹窗中有网络请求的逻辑开发。而 DialogFragment 可以当做一个 Fragment 来使用，比较适合做一些复杂的逻辑，网络请求。
 
 ### 基本使用方式
-1. 创建方式：
+1. **创建方式：**
     - 重写 `onCreateView` 方法，自定义布局。适用于复杂UI场景。
     - 重写 `onCreateDialog` 方法，自定义Dialog。适用于简单、传统弹窗UI。
 
-2. 重写 **onCreateView** 方法:
+2. **重写 onCreateView 方法:**
 ```java
 public class CustomDialogFragment extends DialogFragment {
     private static final String TAG = "CustomDialogFragment";
@@ -80,10 +80,9 @@ public class CustomDialogFragment extends DialogFragment {
         mTvDialogContent.setText(content);
     }
 }
-
 ```
 
-3. 重写 **onCreateDialog** 方法：
+3. **重写 onCreateDialog 方法：**
 
 ```java
 @NonNull
@@ -108,18 +107,18 @@ public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 }
 ```
 > **注意:** AlertDialog 分为 v7 包下的和 android.app 包下的， android.app 包下的在 Android 5.0 以前版本显示为老样式，5.0 以后显示新的 MD 新风格，为了兼容老版本统一显示最新样式，使用 v7 包下的类。
-4. 在 Activity 中的显示出来:
+
+4. **在 Activity 中的显示出来:**
 
 ```java
 CustomDialogFragment  dialog = CustomDialogFragment.newInstance("我是内容") ;
 dialog.show(getSupportFragmentManager(),"dialog");
 ```
-5. 其他
+5. **其他**
 
 - 关闭弹窗    `customDialogFragment.dismiss();`
 - 去掉标题  `getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE)`
 ### 自定义宽高样式
-
 
 #### 自定义宽高
 我们在使用 onCreateView 方式创建 DialogFragment 的时候，发现我们在 xml 根布局中设置的宽高并不起作用。这个时候我们可以自己设置 Dialog 所在 Window 的宽高来设置弹窗宽高大小。
@@ -149,7 +148,7 @@ public void onStart() {
     }
 }
 ```
->**注：** 如果通过 window 设置弹窗宽高，要注意 `attributes.width = ViewGroup.LayoutParams.MATCH_PARENT` 来设置宽为屏宽时，则必须设置 ` window.setBackgroundDrawableResource(R.color.transparent)`
+>**注：** 如果通过 window 设置弹窗宽高，要注意 `attributes.width = ViewGroup.LayoutParams.MATCH_PARENT` 来设置宽为屏宽时，则必须设置 ` window.setBackgroundDrawableResource()`
 - **在 xml 中设置宽高**
     
 ```java
@@ -364,6 +363,7 @@ public interface OnDialogClickListener {
     mBtnCancel.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            //注意：这里调用的是 getParentFragment()，用来获取宿主 Fragment
             if (getParentFragment() instanceof OnDialogClickListener) {
                 //传递消息给 Fragment 
                 ((OnDialogClickListener) getParentFragment()).cancel("点击取消");
@@ -373,6 +373,7 @@ public interface OnDialogClickListener {
     mBtnConfirm.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            //注意：这里调用的是 getParentFragment()，用来获取宿主 Fragment
             if (getParentFragment() instanceof OnDialogClickListener) {
                 //传递消息给 Fragment 
                 ((OnDialogClickListener) getParentFragment()).cancel("点击确认");
@@ -402,10 +403,10 @@ public void setStyle(@DialogStyle int style, @StyleRes int theme) {
 }
 
 ```
-可以看出在 style 为 `STYLE_NO_FRAME` 和 `STYLE_NO_INPUT` 的时候，
+可以看出在 style 为 `STYLE_NO_FRAME` 或 `STYLE_NO_INPUT` 的时候，
 如果 mTheme 为 0，就设置 mTheme 为 android.R.style.Theme_Panel；
 
-我们在 DialogFragment 中找到 mStyle 起作用的地方。
+我们在 DialogFragment 中搜索 mStyle 出现的地方，找到 mStyle 起作用的地方。
 
 ```java
 @Override
@@ -426,7 +427,15 @@ public LayoutInflater onGetLayoutInflater(Bundle savedInstanceState) {
     return (LayoutInflater) mHost.getContext().getSystemService(
             Context.LAYOUT_INFLATER_SERVICE);
 }
-//----------------------------------------------------
+--------------------------------------------------------------------------
+/*DialogFragment 本身在创建 dialog 的时候，
+调用了 getTheme 方法获取了当前设置的 mTheme，设置给了 Dialog 。
+所以如果我们重写覆盖了父类的 onCreateDialog 方法，mTheme 需要我们重新手动设置给 Dialog */
+@NonNull
+public Dialog onCreateDialog(Bundle savedInstanceState) {
+    return new Dialog(getActivity(), getTheme());
+}
+--------------------------------------------------------------------------
 /*从下面的方法可以看出，STYLE_NO_INPUT、STYLE_NO_FRAME、STYLE_NO_TITLE 
 这三种类型的 Style 都去掉了 Dialog 的标题。*/
 /** @hide */
@@ -442,14 +451,6 @@ public void setupDialog(Dialog dialog, int style) {
         case STYLE_NO_TITLE:
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
     }
-}
-//----------------------------------------------------------
-/*DialogFragment 本身在创建 dialog 的时候，
-调用了 getTheme 方法获取了当前设置的 mTheme，设置给了 Dialog 。
-所以如果我们重写覆盖了父类的 onCreateDialog 方法，mTheme 需要我们重新手动设置给 Dialog */
-@NonNull
-public Dialog onCreateDialog(Bundle savedInstanceState) {
-    return new Dialog(getActivity(), getTheme());
 }
 ```
 我们找到 **onGetLayoutInflater** 方法的调用地方
@@ -554,8 +555,14 @@ public void onActivityCreated(Bundle savedInstanceState) {
     //-----代码省略----
 }
 ```
-因为 mCancelable 这个值默认是 true ，我们在 onCreateView 和 onCreateDialog 中设置 `dialog.setCancelable(false);`后，并没有将 mCancelable 的值改变为false， DialogFragment 在走到 onActivityCreated 生命周期时，又调用了 `mDialog.setCancelable(mCancelable);` 覆盖了我们之前的设置，所以我们之前的设置没有起作用。而 DialogFragment 本身的 setCancelable 方法内部改变了 mCancelable 值，所以达到了我们的效果。
-
+因为 mCancelable 这个值默认是 true ，我们在 onCreateView 和 onCreateDialog 中设置 `dialog.setCancelable(false);`后，并没有将 mCancelable 的值改变为false， DialogFragment 在走到 onActivityCreated 生命周期时（++onActivityCreated 在 onCreateView / onCreateDialog 后面执行++），又调用了 `mDialog.setCancelable(mCancelable);` 覆盖了我们之前的设置，所以我们之前的设置没有起作用。DialogFragment 本身的 setCancelable 方法内部改变了 mCancelable 值，所以达到了我们的效果。
+### 总结：
+1. DialogFragment 继承于 Fragment，内部有一个 Dialog，比直接使用 Dialog 更加的灵活，扩展性也更好。
+2. 通过重写 onCreateView 或者 onCreateDialog 来使用 DialogFragment。
+3. 通过直接指定 window 的宽高，或者在xml 跟布局中再嵌套一个 ViewGroup 来改变 DialogFragment 的宽高。
+4. 通过 getActivity 获取宿主 Activity，从而传递数据给Activity；通过 getParentFragment 获取宿主 Fragment来传递数据给宿主 Fragment。
+5. 设置 style和 theme的时候，必须要在 onCreateView 之前调用；getDialog 在 onCreateView 之前调用获取的都是null。
+6. 设置弹窗点击外部不可消失和屏蔽返回键要调用 DialogFragment 本身的 setCancelable 方法，而不是 Dialog 的 setCancelable  方法。
 >**另，推荐一个好文**[**选择正确的 Fragment#commitXXX() 函数**](http://blog.chengyunfeng.com/?p=1016#ixzz5jIKL0GMm)
 ### 参考
 - [Using DialogFragment](https://github.com/codepath/android_guides/wiki/Using-DialogFragment)
